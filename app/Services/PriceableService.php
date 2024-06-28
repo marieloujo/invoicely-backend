@@ -54,12 +54,7 @@ class PriceableService extends AbstractCrudService
         try {
 
             $model = $this->repository->create($request->validated());
-            Price::create([
-                'priceable_id'      => $model->id,
-                'priceable_type'    => get_class($model),
-                'unit_price_excl'   => $request->price,
-                'unit_price_incl'   => get_include_taxe_amount($request->price),
-            ]);
+            $model->prices()->save(new Price(['unit_price_excl'   => $request->price]));
 
             DB::commit();
 

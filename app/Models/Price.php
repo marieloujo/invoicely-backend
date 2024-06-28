@@ -46,10 +46,12 @@ class Price extends Model
     protected function casts(): array
     {
         return [
-            'id'         => 'string',
-            'start_date'  => 'datetime:d/m/Y',
-            'end_date'  => 'datetime:d/m/Y',
-            'created_at' => 'datetime:d/m/Y g:i A',
+            'id'            => 'string',
+            'start_date'    => 'datetime:d/m/Y',
+            'end_date'      => 'datetime:d/m/Y',
+            'created_at'    => 'datetime:d/m/Y g:i A',
+            'unit_price_excl'   => 'double',
+            'unit_price_incl'   => 'double',
         ];
     }
 
@@ -72,6 +74,10 @@ class Price extends Model
 
         static::creating(function ($model) {
             $model->start_date = now();
+        });
+
+        static::saving(function ($model) {
+            $model->unit_price_incl = get_include_taxe_amount($model->unit_price_excl);
         });
     }
 

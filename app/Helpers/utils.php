@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Foundation\Http\FormRequest;
+
 if (!function_exists('calculate_taxe_amount')) {
 
     function calculate_taxe_amount(float $amount) : float {
@@ -51,3 +53,25 @@ if (!function_exists('generate_unique_invoice_number')) {
     }
 }
 
+if (!function_exists('path_build')) {
+
+    function path_build(string $basePath, string $param) {
+        return $basePath . '/' . $param;
+    }
+}
+
+if (!function_exists('sluglify')) {
+
+    function sluglify(string $name) {
+        $slug = strtolower(trim($name));
+        $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
+        return preg_replace('/-+/', '-', $slug);
+    }
+}
+
+if (!function_exists('mock_request')) {
+
+    function mock_request(array $data) {
+        return new FormRequest([], [], [], [], [], [], json_encode($productData));
+    }
+}

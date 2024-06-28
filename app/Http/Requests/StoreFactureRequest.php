@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\EnsureProductQuantityIsEnough;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreFactureRequest extends FormRequest
@@ -32,9 +33,9 @@ class StoreFactureRequest extends FormRequest
             ],
             'type'  => 'required|in:products,services',
             'items' => 'required|array',
-            'items.*' => 'required|array',
             'items.*.id' => 'required|uuid|exists:'. $this->type .',id',
             'items.*.quantity' => 'required|numeric|min:1',
+            'items.*' => ['required', 'array', new EnsureProductQuantityIsEnough($this->type)],
         ];
     }
 }

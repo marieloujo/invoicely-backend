@@ -17,18 +17,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('users');
         });
-        Schema::table('supplies', function (Blueprint $table) {
-            $table->foreignUuid('user_id')
-                ->nullable()
-                ->references('id')
-                ->on('users');
-        });
-        Schema::table('transactions', function (Blueprint $table) {
-            $table->foreignUuid('product_id')
-                ->nullable()
-                ->references('id')
-                ->on('products');
-        });
     }
 
     /**

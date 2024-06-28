@@ -34,17 +34,6 @@ trait HasPrices
         return $this->morphOne(Price::class, 'priceable')->where("status", TRUE);
     }
 
-
-    /**
-     * 
-     */
-    public function sluglify(string $name)
-    {
-        $slug = strtolower(trim($name));
-        $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
-        return preg_replace('/-+/', '-', $slug);
-    }
-
     /**
      * 
      */
@@ -52,9 +41,12 @@ trait HasPrices
     {
         parent::boot();
 
-        static::saving(function ($model) {
+        static::creating(function ($model) {
             $model->user_id = auth('api')->id();
-            $model->slug = $model->sluglify($model->designation);
+        });
+
+        static::saving(function ($model) {
+            $model->slug = sluglify($model->designation);
         });
     }
 

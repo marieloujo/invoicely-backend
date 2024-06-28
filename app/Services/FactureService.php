@@ -5,15 +5,12 @@ namespace App\Services;
 use App\Enums\TypeTransaction;
 use App\Http\Resources\FactureResource;
 use App\Models\Client;
-use App\Models\Facture;
 use App\Models\FactureItem;
 use App\Models\Product;
-use App\Models\Transaction;
 use App\Repositories\FactureRepository;
 use Core\Services\AbstractCrudService;
 use App\Services\Interfaces\FactureServiceInterface;
 use App\Services\Interfaces\TransactionServiceInterface;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -111,15 +108,6 @@ class FactureService extends AbstractCrudService implements FactureServiceInterf
 
 
         return $this->success(response: FactureResource::make($model));
-    }
-
-    /**
-     * 
-     */
-    public function download(Facture $facture)
-    {
-        $pdf = Pdf::loadView('facture', ['facture' => $facture]);
-        return $pdf->download($facture->refeence . ".pdf");
     }
 
 }

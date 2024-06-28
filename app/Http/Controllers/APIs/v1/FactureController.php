@@ -50,12 +50,4 @@ class FactureController extends Controller
         return $this->factureService->find($invoice);
     }
 
-    /**
-     * 
-     */
-    public function download(Facture $invoice)
-    {
-        return $this->factureService->download($invoice);
-    }
-
 }

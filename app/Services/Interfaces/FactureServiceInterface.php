@@ -11,8 +11,4 @@ use Core\Services\AbstractCrudServiceInterface;
 interface FactureServiceInterface extends AbstractCrudServiceInterface
 {
 
-    /**
-     * 
-     */
-    public function download(Facture $facture);
 }

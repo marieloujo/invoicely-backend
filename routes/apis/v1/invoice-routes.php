@@ -19,5 +19,4 @@ Route::middleware("auth:api")->group(function () {
         ->only(['index', 'store', 'show'])
         ->names("invoices");
 
-    Route::get("invoices/{invoice}/download", [FactureController::class, "download"]);
 });

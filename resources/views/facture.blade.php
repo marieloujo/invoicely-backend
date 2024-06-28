@@ -10,7 +10,7 @@
   <meta name="author" content="Laralink">
   <!-- Site Title -->
   <title>Invoice</title>
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
 </head>
 
 <body>
@@ -25,15 +25,15 @@
               </div>
               <div class="tm_invoice_right tm_text_right">
                 <b class="tm_f30 tm_medium tm_primary_color">Facture</b>
-                <p class="tm_m0">Facture N° - {{ $facture->reference }}</p>
+                <p class="tm_m0">Facture N° - {{-- {{ $facture->reference }} --}}</p>
               </div>
             </div>
             <div class="tm_invoice_info tm_mb25">
               <div class="tm_invoice_info_left">
                 <p class="tm_mb17">
-                  <b class="tm_f18 tm_primary_color">{{ $facture->user->name }}</b> <br>
+                  <b class="tm_f18 tm_primary_color">{{-- {{ $facture->user->name }} --}}</b> <br>
                   84 Spilman Street, London <br>United Kingdom. <br>
-                  {{ $facture->user->email }} <br>
+                  {{-- {{ $facture->user->email }} --}} <br>
                 </p>
               </div>
               <div class="tm_invoice_info_right">
@@ -46,10 +46,10 @@
               <div class="tm_border_right tm_border_none_sm">
                 <b class="tm_primary_color">Client Info</b>
                 <p class="tm_m0">
-                    Name: {{ $facture->client->full_name }} <br>
-                    Email: {{ $facture->client->email }} <br>
-                    Phone: {{ $facture->client->phone_number }} <br>
-                    Addrese: {{ $facture->client->adresse }}
+                    Name: {{-- {{ $facture->client->full_name }} --}} <br>
+                    Email: {{-- {{ $facture->client->email }} --}} <br>
+                    Phone: {{-- {{ $facture->client->phone_number }} --}} <br>
+                    Addrese: {{-- {{ $facture->client->adresse }} --}}
                 </p>
               </div>
               <div>
@@ -85,7 +85,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach ($facture->items as $key => $item)
+                        {{-- @foreach ($facture->items as $key => $item)
                             <tr>
                                 <td class="tm_width_1">{{ $key + 1 }}</td>
                                 <td class="tm_width_4">{{ $item->price->priceable->designation }}</td>
@@ -93,7 +93,7 @@
                                 <td class="tm_width_3">{{ format_amount($item->price->unit_price_excl) }} <small>XOF</small></td>
                                 <td class="tm_width_3 tm_text_right">{{ format_amount($item->total_amount_excl) }} <small>XOF</small></td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                   </table>
                 </div>
@@ -107,19 +107,19 @@
                       <tr>
                         <td class="tm_width_3 tm_primary_color tm_border_none tm_bold">Sous Total</td>
                         <td class="tm_width_3 tm_primary_color tm_text_right tm_border_none tm_bold">
-                            {{ format_amount($facture->total_amount_excl) }} <small>XOF</small>
+                            {{-- {{ format_amount($facture->total_amount_excl) }} --}} <small>XOF</small>
                         </td>
                       </tr>
                       <tr>
                         <td class="tm_width_3 tm_primary_color tm_border_none tm_pt0">Tax 18%</td>
                         <td class="tm_width_3 tm_primary_color tm_text_right tm_border_none tm_pt0">
-                            +{{ format_amount($facture->total_amount_incl - $facture->total_amount_excl) }} <small>XOF</small>
+                            +{{-- {{ format_amount($facture->total_amount_incl - $facture->total_amount_excl) }} --}} <small>XOF</small>
                         </td>
                       </tr>
                       <tr>
                         <td class="tm_width_3 tm_border_top_0 tm_bold tm_f18 tm_primary_color tm_gray_bg tm_radius_6_0_0_6">Grand Total	</td>
                         <td class="tm_width_3 tm_border_top_0 tm_bold tm_f18 tm_primary_color tm_text_right tm_gray_bg tm_radius_0_6_6_0">
-                            {{ format_amount($facture->total_amount_incl) }} <small>XOF</small>
+                            {{-- {{ format_amount($facture->total_amount_incl) }} --}} <small>XOF</small>
                         </td>
                       </tr>
                     </tbody>
@@ -135,5 +135,4 @@
       </div>
     </div>
   </div>
-  <script src="{{ asset('js/html2canvas.min.js') }}"></script>
 </body>

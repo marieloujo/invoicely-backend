@@ -28,12 +28,7 @@ class AuthenticationService implements AuthenticationServiceInterface
 
         if (!$authenticated) throw new AuthenticationException("Invalid password or email");
 
-        $user = Auth::user();
-
-        return $this->success("Successful login", [
-            "access_token" => $user->createToken('MyApp')-> accessToken,
-            "user" => $user
-        ]);
+        return $this->authenticate($email, $password, Auth::user());
     }
 
     /**
@@ -87,15 +82,15 @@ class AuthenticationService implements AuthenticationServiceInterface
      * @param string $password
      * @return JsonResponse
      */
-    private function authenticate(string $email, string $password): JsonResponse
+    private function authenticate(string $email, string $password, $user): JsonResponse
     {
         $body = $this->buildOauthRequestData($email, $password);
 
         $tokenData = $this->createTokenByCredentials($body);
 
-        $accessToken = json_decode($tokenData->getContent());
+        $response = ["access_token" => json_decode($tokenData->getContent()), "user" => $user];
 
-        return $this->success(message: "Successful login", response: $accessToken, code: $tokenData->getStatusCode());
+        return $this->success("Successful login", $response, $tokenData->getStatusCode());
     }
 
 

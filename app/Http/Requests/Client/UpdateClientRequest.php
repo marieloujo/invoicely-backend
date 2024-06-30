@@ -28,7 +28,7 @@ class UpdateClientRequest extends FormRequest
             'adresse'    => 'sometimes|string',
             'last_name'    => 'sometimes|string',
             'first_name'    => 'sometimes|string',
-            'phone_number'    => 'sometimes|string|unique:clients,phone_number,' . $id,
+            // 'phone_number'    => 'sometimes|string|unique:clients,phone_number,' . $id,
         ];
     }
 }

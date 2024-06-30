@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CorsMiddleware;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,22 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->use([
+            CorsMiddleware::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->report(function (ValidationException|AuthenticationException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-                'errors' => $e->errors(),
-                'status_code' => Response::HTTP_UNPROCESSABLE_ENTITY
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
-        });
-        $exceptions->report(function (RuntimeException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-                'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        });
+        //
     })->create();

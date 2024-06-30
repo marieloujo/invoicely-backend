@@ -26,7 +26,7 @@ class StoreClientRequest extends FormRequest
             'adresse'    => 'required|string',
             'last_name'    => 'required|string',
             'first_name'    => 'required|string',
-            'phone_number'    => 'required|string|unique:clients,phone_number',
+            'phone_number'    => 'sometimes|string|unique:clients,phone_number',
         ];
     }
 }

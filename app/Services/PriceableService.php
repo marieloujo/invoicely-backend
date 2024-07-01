@@ -54,7 +54,7 @@ class PriceableService extends AbstractCrudService
         try {
 
             $model = $this->repository->create($request->validated());
-            $model->prices()->save(new Price(['unit_price_excl'   => $request->price]));
+            $model->prices()->save(new Price(['unit_price_excl'   => $request->prix]));
 
             DB::commit();
 
@@ -86,17 +86,11 @@ class PriceableService extends AbstractCrudService
 
             $model->update($request->validated());
 
-            if ($request->price && $request->price != $model->price->unit_price_excl) {
+            if ($request->prix && $request->prix != $model->price->unit_price_excl) {
                 $model->price->status = false;
                 $model->price->end_date = now();
                 $model->price->save();
-
-                Price::create([
-                    'priceable_id'      => $model->id,
-                    'priceable_type'    => get_class($model),
-                    'unit_price_excl'   => $request->price,
-                    'unit_price_incl'   => get_include_taxe_amount($request->price),
-                ]);
+                $model->prices()->save(new Price(['unit_price_excl'   => $request->prix]));
             }
 
             $model->refresh();

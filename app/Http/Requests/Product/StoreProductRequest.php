@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
             'designation' => ['required', new UniqueForUser("products", "designation")],
             'lower_limit' => 'required|numeric|min:1',
             'stock' => 'required|numeric|min:1',
-            'price' => 'required|numeric|decimal:0,2'
+            'prix' => 'required|numeric|decimal:0,2'
         ];
     }
 }

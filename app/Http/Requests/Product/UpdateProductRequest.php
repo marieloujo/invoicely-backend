@@ -26,7 +26,7 @@ class UpdateProductRequest extends FormRequest
             'designation' => ['sometimes', new UniqueForUser("products", "designation", $this->route('product')->id)],
             'lower_limit' => 'sometimes|numeric|min:1',
             'stock' => 'sometimes|numeric|min:1',
-            'price' => 'sometimes|numeric|decimal:0,2'
+            'prix' => 'sometimes|numeric|decimal:0,2'
         ];
     }
 }

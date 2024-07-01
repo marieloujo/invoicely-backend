@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\APIs\v1\FactureController;
+use App\Http\Controllers\APIs\v1\StatisticController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,7 @@ Route::middleware("auth:api")->group(function () {
     Route::apiResource("invoices", FactureController::class)
         ->only(['index', 'store', 'show'])
         ->names("invoices");
+
+    Route::get('/statistics', StatisticController::class);
 
 });

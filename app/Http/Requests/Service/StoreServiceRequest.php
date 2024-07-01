@@ -24,7 +24,7 @@ class StoreServiceRequest extends FormRequest
     {
         return [
             'designation' => ['required', new UniqueForUser("services", "designation")],
-            'price' => 'required|numeric|decimal:0,2',
+            'prix' => 'required|numeric|decimal:0,2',
         ];
     }
 }

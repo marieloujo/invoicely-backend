@@ -24,7 +24,7 @@ class UpdateServiceRequest extends FormRequest
     {
         return [
             'designation' => ['sometimes', new UniqueForUser("services", "designation", $this->route('service')->id)],
-            'price' => 'sometimes|numeric|decimal:0,2',
+            'prix' => 'sometimes|numeric|decimal:0,2',
         ];
     }
 }

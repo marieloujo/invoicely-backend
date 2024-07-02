@@ -47,7 +47,9 @@ class FactureService extends AbstractCrudService implements FactureServiceInterf
      */
     public function paginate(Request $request): JsonResponse
     {
-        $data = $this->repository->model->where("user_id", auth('api')->id())
+        $data = $this->repository->model
+                    ->where("user_id", auth('api')->id())
+                    ->orderBy('created_at', 'desc')
                     ->paginate($request->per_page ?? env("PAGINATION_PER_PAGE", 10));
 
         return $this->success(response: $data);

@@ -50,4 +50,9 @@ class FactureController extends Controller
         return $this->factureService->find($invoice);
     }
 
+    public function markAsPaid(Facture $invoice)
+    {
+        return $this->factureService->markAsPaid($invoice);
+    }
+
 }

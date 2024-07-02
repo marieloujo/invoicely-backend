@@ -121,7 +121,7 @@ class Facture extends Model
     {
         parent::boot();
 
-        static::saving(function ($model) {
+        static::creating(function ($model) {
             $model->user_id = auth('api')->id();
             $model->reference = generate_unique_invoice_number();
         });

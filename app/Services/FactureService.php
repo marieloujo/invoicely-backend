@@ -5,8 +5,10 @@ namespace App\Services;
 use App\Enums\TypeTransaction;
 use App\Http\Resources\FactureResource;
 use App\Models\Client;
+use App\Models\Facture;
 use App\Models\FactureItem;
 use App\Models\Product;
+use App\Models\Service;
 use App\Repositories\FactureRepository;
 use Core\Services\AbstractCrudService;
 use App\Services\Interfaces\FactureServiceInterface;
@@ -67,9 +69,11 @@ class FactureService extends AbstractCrudService implements FactureServiceInterf
 
             $facture = $this->repository->create(["client_id" => $clientId]);
 
+            $priceableClass = $request->type == 'products' ? new Product : new Service;
+
             foreach ($request->items as $item) {
 
-                $product = Product::find($item['id']);
+                $product = $priceableClass->find($item['id']);
                 $quantity = floatval($item['quantity']);
                 $price = $product->price;
 
@@ -81,7 +85,9 @@ class FactureService extends AbstractCrudService implements FactureServiceInterf
                     'total_amount_incl' => $price->unit_price_incl * $quantity,
                 ]);
 
-                $this->transactionService->store($factureItem, $product, TypeTransaction::SALES, $quantity);
+                if ($request->type == 'products')
+
+                    $this->transactionService->store($factureItem, $product, TypeTransaction::SALES, $quantity);
             }
 
             DB::commit();
@@ -108,6 +114,18 @@ class FactureService extends AbstractCrudService implements FactureServiceInterf
 
 
         return $this->success(response: FactureResource::make($model));
+    }
+
+    /**
+     * @param Facture $facture
+     * @return JsonResponse
+     */
+    public function markAsPaid(Facture $facture) : JsonResponse
+    {
+        $facture->status = true;
+        $facture->save();
+
+        return $this->success("Facture mark as paid successfully", $facture);
     }
 
 }

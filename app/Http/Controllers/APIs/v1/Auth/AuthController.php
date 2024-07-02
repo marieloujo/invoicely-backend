@@ -70,7 +70,7 @@ class AuthController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
-        return $this->authService->logout();
+        return $this->authService->revokeAccessToken();
     }
 
 }

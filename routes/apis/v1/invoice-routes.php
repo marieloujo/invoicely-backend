@@ -20,6 +20,8 @@ Route::middleware("auth:api")->group(function () {
         ->only(['index', 'store', 'show'])
         ->names("invoices");
 
+    Route::put("invoices/{invoice}/mark-as-paid", [FactureController::class, 'markAsPaid']);
+
     Route::get('/statistics', StatisticController::class);
 
 });

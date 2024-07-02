@@ -35,7 +35,9 @@ class PriceableService extends AbstractCrudService
      */
     public function paginate(Request $request): JsonResponse
     {
-        $data = $this->repository->model->where("user_id", auth('api')->id())
+        $data = $this->repository->model
+                    ->where("user_id", auth('api')->id())
+                    ->orderBy('designation')
                     ->paginate($request->per_page ?? env("PAGINATION_PER_PAGE", 10));
 
         return $this->success(response: $data);
